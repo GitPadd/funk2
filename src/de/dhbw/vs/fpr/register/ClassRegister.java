@@ -17,7 +17,7 @@ public class ClassRegister {
 			StringBuilder sb = new StringBuilder();
 
 			File myfile = new File(
-					"/Users/Patrice/Documents/workspace/funk/src/funkTest/student.txt");
+					"/Users/Patrice/Documents/workspace/ClassRegister/src/de/dhbw/vs/fpr/register/student.txt");
 
 			Scanner fileScanner = new Scanner(myfile);
 
@@ -42,7 +42,6 @@ public class ClassRegister {
 																// Klassen aus
 																// Textdatei
 
-
 				k.createClass(helper[i]);
 				theClasses.add(k);
 			}
@@ -55,7 +54,7 @@ public class ClassRegister {
 
 	public void eintragzuOrdnen() {
 		File myRegister = new File(
-				"/Users/Patrice/Documents/workspace/funk/src/funkTest/register.txt");
+				"/Users/Patrice/Documents/workspace/ClassRegister/src/de/dhbw/vs/fpr/register/register.txt");
 		Scanner fileScanner;
 		try {
 			fileScanner = new Scanner(myRegister);
@@ -70,45 +69,21 @@ public class ClassRegister {
 															// in einzelne
 															// klassenbereiche
 
-			String einzelne[] = klassen[1].split(";");
-
-			// Hier muss die eindeutige ID mit der Klassen ID verglichen werden,
-			// wenn klassenID mit einer EintragsID zusammenpasst kann man diesen
-			// zuordnen
+			
 			if (klassen.length % 3 == 1) { // Wenn Rest = 1 dann ist die Datei
 											// jeweils mit x einträgen à 3
 											// Blöcke befüllt.
 
+				Student s = null;
 				for (int i = 0; i < klassen.length - 1; i = i + 3) {
-					String compareClassID = klassen[i + 1].toString()
-							.substring(0, 3); // Eindeutige KlassenID wird
-												// dediziert
-					String comparePupilID = klassen[i + 1].toString()
-							.substring(3, 5); // Eindeutige SchuelerID wird
-												// dediziert
 
-					if (findKlasse(compareClassID) != null) {
-						Class k = findKlasse(compareClassID);
-						if (k.compareID(comparePupilID) != null) {
-							Student s = k.compareID(comparePupilID);
-							s.addEintrag(new Entry(klassen[i + 3],
-									klassen[i + 2], klassen[i + 1])); // Eintrag
-																		// wird
-																		// jeweiligem
-																		// Schüler
-																		// hinzugefügt
-
-						} else {
-							System.out.println("Leider ist Schueler mit ID "
-									+ comparePupilID + " nicht vorhanden");
-						}
-
-						System.out.println("hat geklappt!");
-					} else {
-						System.out
-								.println("Leider ist keine Klasse mit der ID "
-										+ compareClassID + " vorhanden!!");
-					}
+					s = findStudent(klassen[i+1].substring(0, 5));//Schüler wird gesucht
+					s.addEintrag(new Entry(klassen[i + 3], klassen[i + 2],
+							klassen[i + 1])); // Eintrag
+												// wird
+												// jeweiligem
+												// Schüler
+												// hinzugefügt
 				}
 
 			} else {
@@ -119,6 +94,38 @@ public class ClassRegister {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
+	}
+
+	public Student findStudent(String searchID) {
+
+		String compareClassID = searchID.substring(0, 3); // Eindeutige
+															// KlassenID wird
+		// dediziert
+		String comparePupilID = searchID.substring(3, 5); // Eindeutige
+															// SchuelerID wird
+		// dediziert
+
+		Student s = null;
+
+		if (findKlasse(compareClassID) != null) {
+			Class k = findKlasse(compareClassID);
+			if (k.compareID(comparePupilID) != null) {
+				s = k.compareID(comparePupilID);
+
+			} else {
+				System.out.println("Leider ist Schueler mit ID "
+						+ comparePupilID + " nicht vorhanden");
+			}
+
+			System.out.println("hat geklappt!");
+		} else {
+			System.out.println("Leider ist keine Klasse mit der ID "
+					+ compareClassID + " vorhanden!!");
+		}
+
+		//System.out.println(s.getName());
+		return s;
 
 	}
 
@@ -147,5 +154,9 @@ public class ClassRegister {
 			System.out.println("");
 			theClasses.get(i).listStudents();
 		}
+	}
+
+	public void generateEntry(String eindeutigeID) {
+
 	}
 }

@@ -7,9 +7,9 @@ public class StartRegister {
 		ClassRegister k1 = new ClassRegister();
 		k1.ReadData();
 		k1.eintragzuOrdnen();
-		
+		//TEEEST
 		k1.listClasses();
-
+		
 
 	}
 
