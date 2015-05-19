@@ -1,1 +1,0 @@
-# funksem2
