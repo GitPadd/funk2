@@ -51,7 +51,7 @@ public class ClassRegister {
 		}
 
 	}
-
+//HAAAAAAAAAAAAAAAAAALLLLO
 	public void eintragzuOrdnen() {
 		File myRegister = new File(
 				"/Users/Patrice/Documents/workspace/ClassRegister/src/de/dhbw/vs/fpr/register/register.txt");
